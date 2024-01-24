@@ -17,11 +17,13 @@ const useGetData = (searchValue, page, type) => {
       : `https://api.themoviedb.org/3/account/20941210/favorite/movies?page=${page}`
 
     const timeout = setTimeout(() => {
-
       fetch(url, {
         headers: { Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MWZiZTQ5YjY1MWFjODZiODY3M2RiNzQxZDAyMzJkOCIsInN1YiI6IjY1YWZhYzIwMTU4Yzg1MDEwYWEwZTA4OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4sgFRGgorNIzSpqk6SIlE0XgX2ckY-zEqDKQUqiKTes' }
       })
-        .then(res => res.json())
+        .then(res => {
+          if(!res.ok) throw new Error(`HTTP error ${res.status}`)
+          return res.json()
+        })
         .then(setData)
         .catch(setError)
         .finally(() => setLoading(false))

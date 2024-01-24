@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import DisplayGrid from "./components/DisplayGrid"
 import useGetData from "./hooks/useGetData"
 import Pagination from "./components/Pagination"
+import Popup from "./components/Popup"
 
 const Template = ({ type }) => {
 
@@ -27,12 +28,12 @@ const Template = ({ type }) => {
         : <button onClick={() => setSearchValue('')}>Clear Search</button>
         }
       </div>
-      {!loading ? 
+      {!loading && !error ?
       <>
-        <DisplayGrid items={data.results} search={searchValue} type={type} onRemoveFavorite={() => type === 'Favorites' && refetch()} />
+        <DisplayGrid items={data.results} search={searchValue} type={type} onRemoveFavorite={refetch} />
         <Pagination page={page} totalPages={data.total_pages} onPageChange={setPage} />
       </>
-      : 'loading'}
+      : !error ? 'loading' : <Popup message={error && `Failed to retrieve ${type} data: ${error.message}`} />}
     </div>
   )
 }
