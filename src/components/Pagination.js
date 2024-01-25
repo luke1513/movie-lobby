@@ -3,7 +3,7 @@ const Pagination = ({ page, totalPages, onPageChange }) => {
   totalPages = totalPages > 500 ? 500 : totalPages
 
   return (
-    <div>
+    <div id='pagination-wrapper'>
       <div onClick={() => page > 1 && onPageChange(1)}>&#10094;&#10094;</div>
       <div onClick={() => page > 1 && onPageChange(page - 1)}>&#10094;</div>
       {page - 2 >= 1 && <div>...</div>}

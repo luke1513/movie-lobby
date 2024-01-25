@@ -15,7 +15,7 @@ const Popup = ({ message }) => {
   }, [message])
 
   return (<>
-    {show && message && <div style={{position: "fixed", top: 0, right: 0}}>{message}</div>}
+    {show && message && <div id='popup-wrapper'>{message}</div>}
     
   </>)
 }
